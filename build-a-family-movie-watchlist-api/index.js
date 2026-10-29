@@ -1,7 +1,9 @@
 import express from "express";
 import helmet from "helmet";
+import "dotenv/config";
 
-import watchlistRoutes from "./routes/watchlist";
+import authRoutes from "./routes/auth.js";
+import watchlistRoutes from "./routes/watchlist.js";
 
 const PORT = process.env.PORT;
 const app = express();
@@ -13,8 +15,13 @@ app.get("/", (req, res) => {
   res.send("Family Movie Watchlist API");
 });
 
+app.use("/api/auth", authRoutes);
+
 app.use("/api/watchlist", watchlistRoutes);
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}...`);
+app.listen(PORT, () => { 
+  console.log(`Server running on http://localhost:${PORT}...`);
 });
+
+
+
